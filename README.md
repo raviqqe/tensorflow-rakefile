@@ -1,2 +1,8 @@
 # tensorflow-rakefile
-Rakefile for TensorFlow projects
+
+Rake tasks and utilities for TensorFlow projects
+
+
+## License
+
+[The Unlicense](https://unlicense.org)
