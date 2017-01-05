@@ -7,6 +7,7 @@ module TFRake
       module_dir,
       python: 'python3',
       define_pytest: true,
+      pytest_flags: [],
       tensorflow_url: 'https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.1-cp35-cp35m-linux_x86_64.whl',
       packages: [])
     task :venv do
@@ -28,7 +29,7 @@ module TFRake
 
 
     task_in_venv :pytest do
-      vsh :pytest, module_dir
+      vsh(:pytest, *pytest_flags, module_dir)
     end if define_pytest
 
 
