@@ -7,13 +7,15 @@ module TFRake
       module_dir,
       python: 'python3',
       define_pytest: true,
-      tensorflow_url: 'https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.0-cp35-cp35m-linux_x86_64.whl')
+      tensorflow_url: 'https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.0-cp35-cp35m-linux_x86_64.whl',
+      packages: [])
     task :venv do
       sh "#{python} -m venv #{VENV_DIR}" unless File.directory? VENV_DIR
 
       vsh "pip install --upgrade #{[
         tensorflow_url,
         *%w(pytest pdoc autopep8 twine),
+        *packages,
       ].join ' '}"
 
       vsh 'python setup.py install'
