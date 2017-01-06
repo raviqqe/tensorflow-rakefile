@@ -29,7 +29,7 @@ module TFRake
 
 
     task_in_venv :pytest do
-      vsh(:pytest, *pytest_flags, module_dir)
+      vsh(:pytest, '--doctest-modules', *pytest_flags, module_dir)
     end if define_pytest
 
 
