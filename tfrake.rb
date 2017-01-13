@@ -8,7 +8,7 @@ module TFRake
       python: 'python3',
       define_pytest: true,
       pytest_flags: [],
-      tensorflow_url: 'https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.1-cp35-cp35m-linux_x86_64.whl',
+      tensorflow_url: `if which nvidia-smi > /dev/null; then echo https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-0.12.1-cp35-cp35m-linux_x86_64.whl; else echo https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.1-cp35-cp35m-linux_x86_64.whl; fi`.strip,
       packages: [])
     task :venv do
       sh "#{python} -m venv #{VENV_DIR}" unless File.directory? VENV_DIR
