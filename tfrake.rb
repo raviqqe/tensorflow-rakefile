@@ -7,7 +7,7 @@ module TFRake
       python: 'python3',
       define_pytest: true,
       pytest_flags: [],
-      tensorflow_url: `if which nvidia-smi > /dev/null; then echo tensorflow-gpu; else echo tensorflow; fi`.strip,
+      tensorflow_url: `if which nvidia-smi > /dev/null; then echo tensorflow-gpu==0.12.1; else echo tensorflow; fi`.strip,
       packages: []
   )
     task :venv do
