@@ -2,19 +2,16 @@ module TFRake
   VENV_DIR = '.venv'.freeze
   IN_VENV = ". #{VENV_DIR}/bin/activate &&".freeze
 
-  def define_tasks(
-      module_dir,
-      python: 'python3',
-      define_pytest: true,
-      pytest_flags: [],
-      tensorflow_url: `if which nvidia-smi > /dev/null; then echo tensorflow-gpu; else echo tensorflow; fi`.strip,
-      packages: []
-  )
+  def define_tasks(module_dir,
+                   python: 'python3',
+                   define_pytest: true,
+                   pytest_flags: [],
+                   packages: [])
     task :venv do
       sh "#{python} -m venv #{VENV_DIR}" unless File.directory? VENV_DIR
 
       vsh "pip install --upgrade #{[
-        tensorflow_url,
+        `if which nvidia-smi > /dev/null; then echo tensorflow-gpu; else echo tensorflow; fi`.strip,
         'pytest', 'pdoc', 'autopep8', 'twine',
         *packages
       ].join ' '}"
