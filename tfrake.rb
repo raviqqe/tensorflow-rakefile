@@ -16,7 +16,7 @@ module TFRake
         *packages
       ].join ' '}"
 
-      vsh 'python setup.py install'
+      vsh "#{python} setup.py install"
     end
 
     task :clean do
@@ -38,7 +38,7 @@ module TFRake
     end
 
     task_in_venv upload: :test do
-      vsh 'python setup.py sdist bdist_wheel'
+      vsh "#{python} setup.py sdist bdist_wheel"
       vsh 'twine upload dist/*'
     end
   end
