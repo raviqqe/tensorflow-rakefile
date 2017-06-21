@@ -47,13 +47,15 @@ module TFRake
     deps = []
 
     if name.is_a? Hash
+      clean = name.include?(:clean) ? name.delete(:clean) : true
+
       hash = name
       name = hash.keys[0]
       deps = hash[name]
       deps = [deps] unless deps.is_a? Array
     end
 
-    task name => [:clean, :venv, *deps] do |t|
+    task name => [*(clean ? %i[clean] : []), :venv, *deps] do |t|
       yield t
     end
   end
