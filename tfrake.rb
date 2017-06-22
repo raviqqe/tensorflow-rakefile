@@ -44,10 +44,11 @@ module TFRake
   end
 
   def task_in_venv(name)
+    clean = true
     deps = []
 
     if name.is_a? Hash
-      clean = name.include?(:clean) ? name.delete(:clean) : true
+      clean = name.delete(:clean) if name.include?(:clean)
 
       hash = name
       name = hash.keys[0]
